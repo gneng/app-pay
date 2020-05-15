@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color='warning'>
+    <ion-title>Pokémon Nerdbook</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- searchbar -->
+  <ion-searchbar placeholder='Search for id or full name' (ionChange)='onSearchChange($event)'>
+  </ion-searchbar>
+
+  <!-- searchbar loading scene -->
+  <ion-list *ngIf='pokemons.length == 0'>
+    <ion-item>
+      <ion-avatar slot='end'>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label class='ion-text-capitalize'>
+        <h2>
+          <ion-skeleton-text animated style="width: 40%;"></ion-skeleton-text>
+        </h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- pokemon list -->
+  <ion-list>
+    <ion-item *ngFor='let pokemon of pokemons' [routerLink]='pokemon.pokeIndex'>
+
+      <!-- pokemon image -->
+      <ion-avatar slot="end">
+        <img [src]='pokemon.image' style="background-color: khaki;">
+      </ion-avatar>
+  
+      <!-- pokemon name -->
+      <ion-label class='ion-text-capitalize'>
+        <h2>
+          <strong>{{ pokemon.pokeIndex }} - </strong>{{ pokemon.name }}
+        </h2>
+      </ion-label>
+  
+    </ion-item>
+  </ion-list>
+
+  <!-- infinite scrolling controller -->
+  <ion-infinite-scroll (ionInfinite)='loadPokemons(true, $event)'>
+    <ion-infinite-scroll-content loadingSpinner='crescent' loadingText='Loading...'>
+
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

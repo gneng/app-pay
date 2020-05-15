@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color='warning'>
+    <!-- title -->
+    <ion-title>Pokémon Nerdbook</ion-title>
+    <!-- back to home button -->
+    <ion-buttons slot='start'>
+      <ion-back-button defaultHref='pokemons'></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- image album -->
+  <ion-item *ngIf='details'>
+    <ion-slides pager='true' [options]='slideOpts'>
+      <ion-slide *ngFor='let sprite of details.images'>
+        <img [src]='sprite' style='height: 250px;'>
+      </ion-slide>
+    </ion-slides>
+  </ion-item>
+
+<ion-content>
+  <div class='ion-text-center'>
+    <!-- pokemon name -->
+    <h2 class="ion-text-capitalize"><b>{{ details?.name }}</b></h2>
+
+    <!-- pokemon types -->
+    <ion-chip color='warning' *ngFor='let x of details?.types'>
+      <ion-label>{{ x.type.name }}</ion-label>
+    </ion-chip>
+  </div>
+
+  <!-- pokemon moves card -->
+  <ion-card>
+    <!-- title -->
+    <ion-card-header>
+      <h3>Moves</h3>
+    </ion-card-header>
+
+    <!-- list -->
+    <ion-card-content>
+      <ion-list lines='full'>
+        <ion-item *ngFor='let m of details?.moves'>
+          <!-- move name -->
+          <ion-label class='ion-text-capitalize'>{{ m.move.name }}</ion-label>
+
+          <!-- sharing button -->
+          <ion-buttons slot='end'>
+            <ion-button (click)='sharing(m.move.name)'>
+              <ion-icon name="share-social-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
